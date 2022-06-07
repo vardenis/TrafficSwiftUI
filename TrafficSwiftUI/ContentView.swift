@@ -8,9 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var buttonName = "Начать"
+    @State private var lightSwitch = "red"
+    private func nextColor() {
+        switch lightSwitch {
+        case "red": lightSwitch = "orange"
+        case "orange": lightSwitch = "green"
+        case "green": lightSwitch = "red"
+        default:
+            lightSwitch = "red"
+        }
+        buttonName = "Далее"
+    }
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            ColorCircleView(color: .red, opacity: lightSwitch == "red" ? 1 : 0.3)
+            ColorCircleView(color: .orange, opacity: lightSwitch == "orange" ? 1 : 0.3)
+            ColorCircleView(color: .green, opacity: lightSwitch == "green" ? 1 : 0.3)
+            Spacer()
+            Button(action: {nextColor()}) {
+                Text(buttonName)
+                    .font(.title)
+            }
+
+        }
+        .padding()
+        
     }
 }
 
